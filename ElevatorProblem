@@ -1,0 +1,63 @@
+using System;
+
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        int M = Convert.ToInt32(Console.ReadLine());
+        int X = Convert.ToInt32(Console.ReadLine());
+        int Y = Convert.ToInt32(Console.ReadLine());
+
+        int[] A = Array.ConvertAll(Console.ReadLine().Split(' '), Int32.Parse);
+        int[] B = Array.ConvertAll(Console.ReadLine().Split(' '), Int32.Parse);
+
+        int result = functon(A, B, M, X, Y);
+        Console.WriteLine(result);
+        Console.ReadKey();
+    }
+
+    public static int functon (int[] A, int[] B, int M, int X, int Y)
+    {
+        int totalStops = 0;
+        long totalWeightPerRound = 0;
+        int maxPersonsCount = 0;
+        List<int> lstFloors = new List<int>();
+        int currPerson = 0;
+        bool startLift = false;
+        while (currPerson < A.Length)
+        {
+            //Should current person be considered?
+            if ((totalWeightPerRound + A[currPerson]) <= Y && (maxPersonsCount + 1) <= X)
+            {
+                totalWeightPerRound += A[currPerson];
+                maxPersonsCount++;
+                lstFloors.Add(B[currPerson]);
+                //If curr person is last person then start the lift
+                if (currPerson == A.Length - 1)
+                    startLift = true;
+
+                currPerson++;
+            }
+            else
+            {
+                startLift = true;
+            }
+
+            if (startLift)
+            {
+                totalStops += lstFloors.Distinct().Count() + 1;
+                //reset variable
+                lstFloors.Clear();
+                maxPersonsCount = 0;
+                totalWeightPerRound = 0;
+                startLift = false;
+            }
+        }
+
+        return totalStops;
+    }
+}
