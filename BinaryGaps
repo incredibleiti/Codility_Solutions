@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 // you can also use other imports, for example:
 // using System.Collections.Generic;
 
@@ -37,7 +38,6 @@ class Solution {
 
             }
         }
-
        return lst.Count!=0? lst.Max() : 0;
     }
     
@@ -50,7 +50,6 @@ class Solution {
             str.Append(n % 2);
             n = (int)(n / 2);
         }
-
         str.Append(n);       
         return str.ToString();
     }
